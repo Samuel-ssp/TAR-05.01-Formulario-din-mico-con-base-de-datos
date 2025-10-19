@@ -2,6 +2,14 @@
 CREATE DATABASE formulario;
 USE formulario;
 
+/*
+    CAMBIOS PARA SQL :
+    
+    1. UNSIGNED - No existe en SQL Server.
+    2. BOOLEAN -  BIT.
+    3. AUTO_INCREMENT - IDENTITY(1,1).
+*/
+
 -- Tabla paises: Creo primero paises para no generar conflicto con la fk en usuarios
 CREATE TABLE paises_select (
     idpais TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -61,3 +69,4 @@ SELECT * FROM paises_select;
 
 -- Intereses (para checkbox)
 SELECT * FROM intereses_check;
+
