@@ -24,7 +24,7 @@
         
         <fieldset>
             <legend><h2>Formulario</h2></legend>
-            <form action="recogerformulario.php" method="post">
+            <form action="registro.php" method="post">
 
                 <div>
                     <label for="nombre">Nombre:</label>
@@ -33,7 +33,7 @@
                 <div>
                     <label for="email">
                     Email:
-                    <input type="email" name="email" id="email">
+                    <input type="email" name="email" id="email" placeholder="@email.com">
                 </label>
                 </div>
                 <div>
@@ -41,9 +41,9 @@
                     <label><u>Intereses:</u></label><br>
                     <?php
                         if($resultado2->num_rows > 0){
-                            while($fila = $resultado2->fetch_array()){
-                                echo '<input type="checkbox" name="intereses[]" value="'.$fila[0].'">';
-                                echo '<label for="'.$fila[1].'">'.$fila[2].'</label><br>';
+                            while($fila = $resultado2->fetch_assoc()){
+                                echo '<input type="checkbox" name="intereses[]" value="'.$fila['idinteres'].'">';
+                                echo '<label for="'.$fila['abreviatura'].'">'.$fila['contenido'].'</label><br>';
                             }
                         }
                     ?>
@@ -51,13 +51,13 @@
                 <div>
                     <!--  Checkbox 1 opcion-->
                     <p><u>Condiciones</u></p>
-                    <input type="checkbox" name="condiciones" id="condiciones" value="Aceptadas">
+                    <input type="checkbox" name="condiciones" id="condiciones" value="Aceptadas" required>
                     <label for="condiciones">Acepto las condiciones</label>
                 </div>
                 <div>
                     <!-- Radio buttons -->
                     <label>Género:</label>
-                    <input type="radio" name="genero" id="masculino" value="M" >
+                    <input type="radio" name="genero" id="masculino" value="M" required>
                     <label for="masculino">Masculino</label>
                     <input type="radio" name="genero" id="femenino" value="F">
                     <label for="femenino">Femenino</label>
@@ -70,8 +70,8 @@
                     <?php
                         echo '<select name="pais" id="pais">';
                         if($resultado->num_rows > 0){
-                            while($fila = $resultado->fetch_array()){
-                                echo '<option value="'.$fila[0].'">'.$fila[2].'</option>';
+                            while($fila = $resultado->fetch_assoc()){
+                                echo '<option value="'.$fila['idpais'].'">'.$fila['contenido'].'</option>';
                             }
                         }
                         echo "</select>";

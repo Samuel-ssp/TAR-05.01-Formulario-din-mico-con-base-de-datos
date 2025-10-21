@@ -1,5 +1,6 @@
 <?php
-//Conecta con la base de datos ($conexión)     //incia sesion en la base de datos con el otro archivo de inicio de sesion
+//Conecta con la base de datos ($conexión)     
+//incia sesion en la base de datos con el otro archivo de inicio de sesion
 include 'configdb.php'; //include del archivo con los datos de conexión
 include 'conexion.php'; //Crea el objeto $conexion con la base de datos
 
@@ -19,7 +20,6 @@ CREATE TABLE usuarios (
     genero CHAR(1) NOT NULL CHECK (genero IN ('M', 'F', 'O')),
     idpais TINYINT UNSIGNED NOT NULL,
     nacimiento DATE,
-    condiciones BOOLEAN DEFAULT 0,
     FOREIGN KEY (idpais) REFERENCES paises_select(idpais)
 );
 
@@ -30,9 +30,9 @@ CREATE TABLE intereses_check (
 );
 
 CREATE TABLE usuario_intereses (
-    id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     usuario_id TINYINT UNSIGNED NOT NULL,
     interes_id TINYINT UNSIGNED NOT NULL,
+    PRIMARY KEY (usuario_id, interes_id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     FOREIGN KEY (interes_id) REFERENCES intereses_check(idinteres)
 );
