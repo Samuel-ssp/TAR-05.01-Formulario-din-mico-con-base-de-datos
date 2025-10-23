@@ -5,8 +5,8 @@ USE formulario;
 -- Tabla paises: Creo primero paises para no generar conflicto con la fk en usuarios
 CREATE TABLE paises_select (
     idpais TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-    abreviatura CHAR(5) NOT NULL,                       -- Valor de paises (ej: 'ES', 'FR')
-    contenido VARCHAR(100) NOT NULL                     -- Texto de paises
+    abreviatura CHAR(5) NOT NULL UNIQUE,                       -- Valor de paises (ej: 'ES', 'FR') para poder tener la primera opcion en blanco
+    contenido VARCHAR(100) NOT NULL UNIQUE                    -- Texto de paises
 );
 
 -- Tabla usuarios
@@ -24,8 +24,7 @@ CREATE TABLE usuarios (
 -- Tabla intereses
 CREATE TABLE intereses_check (
     idinteres TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, -- ID interno del interés
-    abreviatura VARCHAR(50) NOT NULL,                   -- Valor de intereses
-    contenido VARCHAR(150) NOT NULL                     -- Texto de intereses
+    contenido VARCHAR(150) NOT NULL UNIQUE                     -- Texto de intereses
 );
 
 -- Tabla intermedia: relaciona usuarios con intereses 
@@ -48,10 +47,10 @@ INSERT INTO paises_select (abreviatura, contenido) VALUES
 
 -- Intereses (para checkbox)
 INSERT INTO intereses_check (abreviatura, contenido) VALUES
-('boletin', 'Suscribirse al boletín'),                  -- Abreviatura / Contenido
-('eventos', 'Recibir información de eventos'),
-('ofertas', 'Recibir ofertas especiales'),
-('novedades', 'Recibir novedades');
+('Suscribirse al boletín'),                  -- Contenido
+('Recibir información de eventos'),
+('Recibir ofertas especiales'),
+( 'Recibir novedades');
 
 /*
     SELECT PARA FORMULARIO

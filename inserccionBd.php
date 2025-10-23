@@ -9,7 +9,7 @@ $sql = "
 
 CREATE TABLE paises_select (
     idpais TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    abreviatura CHAR(5) NOT NULL,
+    abreviatura CHAR(5) NOT NULL UNIQUE,
     contenido VARCHAR(100) NOT NULL
 );
 
@@ -25,7 +25,6 @@ CREATE TABLE usuarios (
 
 CREATE TABLE intereses_check (
     idinteres TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    abreviatura VARCHAR(50) NOT NULL,
     contenido VARCHAR(150) NOT NULL
 );
 
@@ -43,11 +42,11 @@ INSERT INTO paises_select (abreviatura, contenido) VALUES
 ('fr', 'Francia'),
 ('pt', 'Portugal');
 
-INSERT INTO intereses_check (abreviatura, contenido) VALUES
-('boletin', 'Suscribirse al boletín'),
-('eventos', 'Recibir información de eventos'),
-('ofertas', 'Recibir ofertas especiales'),
-('novedades', 'Recibir novedades');
+INSERT INTO intereses_check (contenido) VALUES
+('Suscribirse al boletín'),
+('Recibir información de eventos'),
+('Recibir ofertas especiales'),
+('Recibir novedades');
 ";
 
 // Multi query nos permite el envio de varias consultas sin parar en los ;
