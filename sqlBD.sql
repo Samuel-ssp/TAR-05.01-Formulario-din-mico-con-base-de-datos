@@ -17,7 +17,7 @@ CREATE TABLE usuarios (
     genero CHAR(1) NOT NULL CHECK (genero IN ('M', 'F', 'O')),-- Género: M=Masculino, F=Femenino, O=Otro 
     idpais TINYINT UNSIGNED NOT NULL,                   -- FK pais 
     nacimiento DATE,                               
-    condiciones BOOLEAN DEFAULT 0,                      -- Acepta condiciones? 0=No, 1=Sí
+    /* condiciones BOOLEAN DEFAULT 0,                      -- Acepta condiciones? 0=No, 1=Sí */
     FOREIGN KEY (idpais) REFERENCES paises_select(idpais)
 );  
 
