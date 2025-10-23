@@ -24,7 +24,7 @@
         
         <fieldset>
             <legend><h2>Formulario</h2></legend>
-            <form action="registro.php" method="post">
+            <form action="registroUsuario.php" method="post">
 
                 <div>
                     <label for="nombre">Nombre:</label>

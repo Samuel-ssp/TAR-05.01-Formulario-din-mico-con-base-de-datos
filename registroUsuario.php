@@ -37,6 +37,7 @@ if ($nombre == '' || $email == '' || empty($_POST["intereses"])) {
 */
 };
 
+//Comprobacion de CLAVE SECUNDARIA UNICA email
 
 
 // Inserta el usuario
