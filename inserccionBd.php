@@ -7,13 +7,16 @@ include 'conexion.php'; //Crea el objeto $conexion con la base de datos
 // SQL para crear base de datos y tablas con la la inserccion en las mismas
 $sql = "
 
-CREATE TABLE paises_select (
+CREATE DATABASE IF NOT EXISTS formulario CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE formulario;
+
+CREATE TABLE IF NOT EXISTS paises_select (
     idpais TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     abreviatura CHAR(5) NOT NULL UNIQUE,
-    contenido VARCHAR(100) NOT NULL
+    contenido VARCHAR(100) NOT NULL UNIQUE
 );
 
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
@@ -23,15 +26,15 @@ CREATE TABLE usuarios (
     FOREIGN KEY (idpais) REFERENCES paises_select(idpais)
 );
 
-CREATE TABLE intereses_check (
+CREATE TABLE IF NOT EXISTS intereses_check (
     idinteres TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    contenido VARCHAR(150) NOT NULL
+    contenido VARCHAR(150) NOT NULL UNIQUE
 );
 
-CREATE TABLE usuario_intereses (
+CREATE TABLE IF NOT EXISTS usuario_intereses (
+    id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     usuario_id TINYINT UNSIGNED NOT NULL,
     interes_id TINYINT UNSIGNED NOT NULL,
-    PRIMARY KEY (usuario_id, interes_id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     FOREIGN KEY (interes_id) REFERENCES intereses_check(idinteres)
 );
