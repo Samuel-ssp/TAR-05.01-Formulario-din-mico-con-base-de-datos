@@ -42,6 +42,7 @@ if ($conexion->query($sqlBorrarTabla)) {
 } else {
     echo " Error borrando tabla: " .$conexion->error."<br>";
 }
+// 5 Modificar tabla
 
 // Cerrar conexión
 $conexion->close();
