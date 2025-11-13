@@ -46,4 +46,5 @@ if ($conexion->query($sqlBorrarTabla)) {
 
 // Cerrar conexión
 $conexion->close();
+
 ?>
