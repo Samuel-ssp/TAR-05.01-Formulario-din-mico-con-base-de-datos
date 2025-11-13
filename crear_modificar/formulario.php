@@ -16,7 +16,7 @@
         
         <fieldset>
             <legend><h2>Formulario</h2></legend>
-            <form action="registroUsuario.php" method="post">
+            <form action="datos.php" method="post">
 
                 <div>
                     <label for="nombre">Nombre:</label>
@@ -32,7 +32,7 @@
                     <!-- Checkbox -->
                     <label><u>Intereses:</u></label><br>
                     <?php
-                        $inputs
+                        $inputs->checkIntereses();
                     ?>
                 </div>
                 <div>
@@ -54,15 +54,11 @@
                 <div>
                     <!-- Select -->
                     <label for="pais">País:</label>
-                    <?php
-                        echo '<select name="pais" id="pais">';
-                        if($resultado->num_rows > 0){
-                            while($fila = $resultado->fetch_assoc()){
-                                echo '<option value="'.$fila['idpais'].'">'.$fila['contenido'].'</option>';
-                            }
-                        }
-                        echo "</select>";
+                    <select name="pais">
+                    <?php 
+                        $inputs->selectPaises();
                     ?>
+                    </select>
                 </div>
                 <div>
                     <!--Date -->
@@ -74,12 +70,6 @@
 
         </form>
         </fieldset>
-    </section>
-
-    <?php
-        //Cierra la conexión
-        $conexion->close();
-    ?>
-    
+    </section>  
 </body>
 </html>

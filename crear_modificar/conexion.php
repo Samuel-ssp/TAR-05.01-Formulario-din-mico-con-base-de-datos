@@ -1,5 +1,5 @@
 <?php
-require_once("configbd.php");
+require_once("configdb.php");
 
 class Conexion{
 
@@ -8,9 +8,12 @@ class Conexion{
     public function __construct(){
 
         try {
-            $dsn ="mysql:host".SERVIDOR."bdname=".BBDD.":charset=utf8mb4";
+
+            $dsn ="mysql:host=".SERVIDOR.";dbname=".BBDD.";charset=utf8mb4";
             $this->conexion= new PDO($dsn,USUARIO,PASSWORD);
+
         } catch (PDOException $e) {
+
             die("Error de conexion:".$e->getMessage());
         }
         

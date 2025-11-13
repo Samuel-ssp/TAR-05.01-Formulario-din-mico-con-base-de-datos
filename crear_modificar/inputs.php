@@ -1,5 +1,5 @@
 <?php
-require_once"conexion.php";
+require_once("conexion.php");
 
 class Input extends Conexion{
 
@@ -13,11 +13,9 @@ class Input extends Conexion{
         // 2. Ejecutamos la consulta
         $stmt = $this->conexion->query($sql);
         
-        // 3. Obtenemos todos los resultados como array asociativo
-        $paises = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        foreach ($paises as $pais) {
-            echo '<option value="'.$pais["abreviatura"].'">"'.$pais["contenido"].'"</option>';
+        foreach ($stmt as $pais) {
+            echo '<option value="'.$pais["idpais"].'">'.$pais["contenido"].'</option>';
         }
         
         
@@ -34,10 +32,9 @@ class Input extends Conexion{
 
             $stmt = $this->conexion->query($sql);
 
-            $intereses = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
-            foreach ($intereses as $interes){
-                echo '<input type="checkbox" name="intereses[]" value="'.$interes["idinteres"].'">"'.$interes["contenido"].'"';
+            foreach ($stmt as $interes){
+                echo '<label><input type="checkbox" name="intereses[]" value="'.$interes["idinteres"].'">'.$interes["contenido"].'</label><br>';
             }
             
         }catch(PDOException $e){

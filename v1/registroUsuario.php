@@ -70,6 +70,3 @@ if ($conexion->query($sqlUsuario)) {
 } else {
     echo "Error con el usuario: " . $conexion->error ;
 };
-
-// Cierra la conexión
-$conexion->close();
