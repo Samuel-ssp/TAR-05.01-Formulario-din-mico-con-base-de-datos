@@ -12,7 +12,7 @@ require_once("usuario.php");
 <body>
     <h1>Usuarios registrados</h1>
     <?php  
-     $usuario->mostrarUsuario($id);
+        $usuario->mostrarUsuario($id);
     ?> 
 </body>
 </html>
