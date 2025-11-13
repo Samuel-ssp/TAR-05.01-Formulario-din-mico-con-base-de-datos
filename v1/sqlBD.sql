@@ -46,11 +46,11 @@ INSERT INTO paises_select (abreviatura, contenido) VALUES
 ('pt', 'Portugal');
 
 -- Intereses (para checkbox)
-INSERT INTO intereses_check (abreviatura, contenido) VALUES
-('Suscribirse al boletín'),                  -- Contenido
+INSERT INTO intereses_check (contenido) VALUES
+('Suscribirse al boletín'),
 ('Recibir información de eventos'),
 ('Recibir ofertas especiales'),
-( 'Recibir novedades');
+('Recibir novedades');
 
 /*
     SELECT PARA FORMULARIO

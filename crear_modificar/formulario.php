@@ -1,15 +1,7 @@
 <?php
-    //Conecta con la base de datos
-    include 'configdb.php';
-    include 'conexion.php';
+    require_once("inputs.php");
 
-    //CONSULTA SQL	
-    $sqlpaises = "SELECT * FROM paises_select;"; 
-    $sqlintereses = "SELECT * FROM intereses_check;";
-
-    //Ejecuta las consultas
-    $resultado = $conexion->query($sqlpaises);
-    $resultado2 = $conexion->query($sqlintereses);
+    $inputs = new Input();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,12 +32,7 @@
                     <!-- Checkbox -->
                     <label><u>Intereses:</u></label><br>
                     <?php
-                        if($resultado2->num_rows > 0){
-                            while($fila = $resultado2->fetch_assoc()){
-                                echo '<input type="checkbox" name="intereses[]" value="'.$fila['idinteres'].'">';
-                                echo '<label for="'.$fila['abreviatura'].'">'.$fila['contenido'].'</label><br>';
-                            }
-                        }
+                        $inputs
                     ?>
                 </div>
                 <div>
