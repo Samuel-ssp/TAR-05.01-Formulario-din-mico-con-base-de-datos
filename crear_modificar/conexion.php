@@ -3,7 +3,7 @@ require_once("configdb.php");
 
 class Conexion{
 
-    public $conexion;
+    protected $conexion;
 
     public function __construct(){
 

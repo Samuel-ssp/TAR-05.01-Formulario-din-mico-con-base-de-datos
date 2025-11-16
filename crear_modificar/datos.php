@@ -8,6 +8,6 @@ $usuario = new Usuario();
 if($usuario->comprobar()){
 
     $id = $usuario->registrar();
-    header('Location=mostrar.php?id='.$id);
+    header('Location:mostrar.php');
     
 } 

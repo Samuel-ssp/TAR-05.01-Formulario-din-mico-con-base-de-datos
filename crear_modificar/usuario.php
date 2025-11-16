@@ -78,44 +78,90 @@ class Usuario extends Conexion {
         }
     }
 
-    public function mostrarUsuario($id){
-        
-        try {
-            // Si se pasa un id, solo mostramos ese usuario
-            if ($id) {
-                $sql = "SELECT u.id, u.nombre, u.email
-                        FROM usuarios u
-                        WHERE u.id = :id";
-                $stmt = $this->conexion->prepare($sql);
-                $stmt->execute(['id' => $id]);
-            } else {
-                // Si no se pasa id, mostramos todos
-                $sql = "SELECT u.id, u.nombre, u.email FROM usuarios u";
-                $stmt = $this->conexion->query($sql);
-            }
+    public function mostrarUsuario($id) {
+        try{
+
+            $sql = "SELECT u.id, u.nombre, u.email FROM usuarios u";
+            $stmt = $this->conexion->query($sql);
 
             foreach ($stmt as $usuario) {
-            echo '<div style="margin-bottom:10px;">';
-            echo 'Nombre: <strong>' . $usuario["nombre"] . '</strong> ';
-            echo 'Email: <strong>' . $usuario["email"] . '</strong> ';
 
-            // Botón Modificar -> ID en la URL
-            echo '<a href="editar_usuario.php?id='.$usuario["id"].'">
-                    <button type="button">Modificar</button>
-                  </a> ';
+                echo '<div>';
+                echo 'Nombre: <strong>' . $usuario["nombre"] . '</strong> ';
+                echo 'Email: <strong>' . $usuario["email"] . '</strong> ';
 
-            // Botón Borrar -> ID en la URL
-            echo '<a href="borrar_usuario.php?id='.$usuario["id"].'">
-                    <button type="button">Borrar</button>
-                  </a>';
+                // BOTÓN MODIFICAR (GET)
+                echo '<a href="editar_usuario.php?id=' . $usuario["id"] . '">
+                        <button type="button">Modificar</button>
+                    </a> ';
 
-            echo '</div>';
-        }
+                // BOTÓN BORRAR (DEBE)
+                echo '
+                    <form action="borrar_usuario.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="'. $usuario["id"] .'">
+                        <button type="submit">
+                            Borrar
+                        </button>
+                    </form>
+                ';
 
-        } catch (PDOException $e) {
-            echo "Error al mostrar usuarios: " . $e->getMessage();
+                echo '</div>';
+            }
+
+        }catch (PDOException $e) {
+
+            echo "Error al mostrando usuarios: " . $e->getMessage();
         }
     }
 
+    public function buscarId($id) {
+        try {
+
+            $sql = "SELECT * FROM usuarios WHERE id = :id";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            $usuario = $stmt->fetch(); // devuelve primera fila
+            if ($usuario) {
+                return $usuario;
+            } else {
+                return null;
+            }
+
+        } catch (PDOException $e) {
+
+            throw new Exception("Error al obtener usuario: " . $e->getMessage());
+
+        }
+    }
+
+    public function borrar($id) {
+        try {
+
+            $sqlDelete = "DELETE FROM usuarios WHERE id = :id";
+            $stmt = $this->conexion->prepare($sqlDelete);
+            $borrado = $stmt->execute(['id' => $id]);
+            return  $borrado;
+
+        } catch (PDOException $e) {
+
+            throw new Exception("Error al eliminar usuario: " . $e->getMessage());
+
+        }
+    }
+
+    public function actualizar($id, $nombre, $email) {
+        try {
+            $sqlUpdate = "UPDATE usuarios SET nombre = :nombre, email = :email WHERE id = :id";
+            $stmt = $this->conexion->prepare($sqlUpdate);
+            return $stmt->execute([
+                ':nombre' => $nombre,
+                ':email' => $email,
+                ':id' => $id
+            ]);
+        } catch (PDOException $e) {
+
+            throw new Exception("Error al actualizndo usuario: " . $e->getMessage());
+        }
+    }
 }
 ?>

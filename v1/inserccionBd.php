@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS usuario_intereses (
     id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     usuario_id TINYINT UNSIGNED NOT NULL,
     interes_id TINYINT UNSIGNED NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
-    FOREIGN KEY (interes_id) REFERENCES intereses_check(idinteres)
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (interes_id) REFERENCES intereses_check(idinteres) ON DELETE CASCADE
 );
 
 INSERT INTO paises_select (abreviatura, contenido) VALUES

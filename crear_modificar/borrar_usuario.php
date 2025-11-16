@@ -3,36 +3,25 @@ require_once("usuario.php");
 
 $usuarioObj = new Usuario();
 
-if (!isset($_GET['id'])) {
-    exit("No se pasó el ID de usuario");
+if (!isset($_POST['id'])) {
+    exit("No se ha pasado el ID del usuario");
 }
 
-$id = $_GET['id'];
+$id = $_POST['id'];
 
-try {
-    $sql = "SELECT * FROM usuarios WHERE id = :id";
-    $stmt = $usuarioObj->conexion->prepare($sql);
-    $stmt->execute(['id' => $id]);
-
-    $usuario = $stmt->fetch(PDO::FETCH_ASSOC); // Se trae las filas como array asociado
-
-    if (!$usuario) {
-        exit("Usuario no encontrado");
-    }
-} catch (PDOException $e) {
-    exit("Error al obtener usuario: " . $e->getMessage());
+// Buscar usuario
+$usuario = $usuarioObj->buscarId($id);
+if (!$usuario) {
+    exit("Usuario no encontrado");
 }
-
 
 // Si se presiona el botón borrar
 if (isset($_POST['borrar'])) {
     try {
-        $sqlDelete = "DELETE FROM usuarios WHERE id = :id";
-        $stmt = $usuarioObj->conexion->prepare($sqlDelete);
-        $stmt->execute(['id' => $id]);
+        $usuarioObj->borrar($id);
         $mensaje = "Usuario eliminado correctamente";
-    } catch (PDOException $e) {
-        $mensaje = "Error al eliminar usuario: " . $e->getMessage();
+    } catch (Exception $e) {
+        $mensaje = $e->getMessage();
     }
 }
 ?>
@@ -51,11 +40,11 @@ if (isset($_POST['borrar'])) {
         <p><a href="mostrar.php">Volver a usuarios</a></p>
     <?php } else { ?>
         <p>¿Estás seguro que deseas borrar este usuario?</p>
-        <p><strong>Nombre:</strong> <?= htmlspecialchars($usuario['nombre']) ?></p>
-        <p><strong>Email:</strong> <?= htmlspecialchars($usuario['email']) ?></p>
+        <p><strong>Nombre:</strong> <?php echo $usuario['nombre'] ?></p>
+        <p><strong>Email:</strong> <?php echo $usuario['email'] ?></p>
 
         <form method="POST">
-            <input type="hidden" name="id" value="<?= $id ?>">
+            <input type="hidden" name="id" value="<?php echo  $id ?>">
             <button type="submit" name="borrar">Borrar</button>
             <a href="mostrar.php">Cancelar</a>
         </form>
