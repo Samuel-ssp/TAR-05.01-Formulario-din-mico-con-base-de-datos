@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +8,15 @@
 <body>
     <h1>Iniciar Sesión</h1>
 
-        <form method="post" action="../index.php">
+        <form method="post" action="../controladores/cUsuario.php?accion=iniciar">
             Usuario:<br>
-            <input type="text" name="usuario"><br><br>
+            <input type="text" name="nombre"><br><br>
 
             Correo:<br>
-            <input type="email" name="correo"><br><br>
+            <input type="email" name="email"><br><br>
 
             <input type="submit" value="Entrar">
         </form>
+        <a href="../vistas/formulario.php">Regístrate aquí</a>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-    require_once("inputs.php");
+    require_once __dir__."/../modelos/inputs.php";
 
     $inputs = new Input();
 ?>
@@ -16,7 +16,7 @@
         
         <fieldset>
             <legend><h2>Formulario</h2></legend>
-            <form action="datos.php" method="post">
+            <form action="../controladores/cUsuario.php?accion=registrar" method="post">
 
                 <div>
                     <label for="nombre">Nombre:</label>

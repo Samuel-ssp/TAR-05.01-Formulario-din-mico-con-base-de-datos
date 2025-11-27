@@ -1,8 +1,3 @@
-<?php
-require_once("usuario.php");
- $id = isset($_GET["id"]) ? $_GET["id"] : null;
- $usuario = new Usuario();
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +7,7 @@ require_once("usuario.php");
 <body>
     <h1>Usuarios registrados</h1>
     <?php  
-        $usuario->mostrarUsuario($id);
+        $this->modelo->mostrarUsuario();
     ?> 
 </body>
 </html>
