@@ -7,16 +7,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="estiloformulario.css">
+    <link rel="stylesheet" href="vistas/estiloformulario.css">
     <title>Document</title>
 </head>
 <body>
-
+    <?php
+        if(isset($_SESSION['error'])){
+            echo '<div style="color: red">'.$_SESSION['error'].'</div>';
+            unset($_SESSION['error']);  // Borra  error
+        }
+    ?>
     <section id="formulario">
         
         <fieldset>
             <legend><h2>Formulario</h2></legend>
-            <form action="../controladores/cUsuario.php?accion=registrar" method="post">
+            <form action="index.php?accion=registrar" method="post">
 
                 <div>
                     <label for="nombre">Nombre:</label>
@@ -32,7 +37,9 @@
                     <!-- Checkbox -->
                     <label><u>Intereses:</u></label><br>
                     <?php
-                        $inputs->checkIntereses();
+                        foreach ($intereses as $interes){
+                            echo '<label><input type="checkbox" name="intereses[]" value="'.$interes["idinteres"].'">'.$interes["contenido"].'</label><br>';
+                        } 
                     ?>
                 </div>
                 <div>
@@ -56,7 +63,9 @@
                     <label for="pais">País:</label>
                     <select name="pais">
                     <?php 
-                        $inputs->selectPaises();
+                        foreach ($paises as $pais) {
+                            echo '<option value="'.$pais["idpais"].'">'.$pais["contenido"].'</option>';
+                        }
                     ?>
                     </select>
                 </div>

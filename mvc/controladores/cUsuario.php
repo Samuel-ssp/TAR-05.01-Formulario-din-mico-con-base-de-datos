@@ -1,62 +1,96 @@
 <?php 
 require_once __DIR__ . "/../modelos/mUsuario.php";
-
+require_once __DIR__."/../modelos/inputs.php";
 
 class CUsuario{
     
     public $datos=[];
     private $modelo;
+    private $inputs;
 
     public function __construct()
     {
         $this->modelo = new MUsuario();
+        $this->inputs = new Input();
     }
 
+    //////////////////////////////////////////MOSTRAR LOGIN
+    public function mostrarLogin(){
+        return "iniciar.php";
+    }
+    //INICIAR SESION
     public function iniciar(){
 
         if($this->validarInicio()){
 
-            if($this->modelo->iniciar($this->datos)) {
-                require_once __DIR__."/../vistas\mostrar.php";
-            }else{
-                require_once __DIR__."/../vistas/iniciar.html";
-            }
+            $resultado = $this->modelo->iniciar($this->datos);
             
-            
-        }else{
-            require_once __DIR__."/../vistas/iniciar.html";
+            if($resultado) {
+
+                $_SESSION['usuario_id'] = $resultado['id']; 
+                return "mostrar.php";
+            } else {
+                $_SESSION['error'] = "Email o contraseña incorrectos";
+                return "iniciar.php";
+            }  
+        
+        } else {
+
+            return "iniciar.php";
         }
+    }
+
+    ////////////////////////////////////////////////MOSTRAR LISTAR
+    public function listar(){
+        return "mostrar.php";
+    }
+    
+    ////////////////////////////////////////////////MOSTRAR BORRAR
+    public function mostrarBorrar(){
         
-        
+    }
+    ////////////////////////////////////////////////MOSTRAR EDITAR
+    public function mostrarEditar(){
+
 
     }
 
-    public function borrar(){
+    public function actualizar(){
         
     }
 
-    public function editar($id){
-
-        $usuario = $this->modelo->buscarid($id);
+    //////////////////////////////////////////////////MOSTRAR REGISTRAR
+    public function mostrarRegistro(){  
+        return  "formulario.php";
+          
+    }
+    //MONSTRAR PAISES
+    public function obtenerPaises(){
+        return $this->inputs->selectPaises();
+        
 
     }
-
-
+    //MOSTRAR INTERESES
+    public function obtenerIntereses(){
+        return  $this->inputs->checkIntereses();
+    }
+    //REGISTRAR USUARIO
     public function registrar(){
 
         if($this->validarRegistro()){
 
             if($this->modelo->registrar($this->datos)) {
-                require_once __DIR__."/../vistas/mostrar.php";
-            }else{
-                require_once __DIR__."/../vistas/formulario.php";
+                    return "mostrar.php";  
+                }else{
+                    $_SESSION['error'] = "Fallo en el registro";
+                    return "formulario.php?accion=registro"; 
+                }
+
+            } else {
+                return "formulario.php";
             }
-
         }
-        
-        
-    }
-
+    ////////////////////////////////////////////VALIDACIONES
     private function validarRegistro(){
         
         // Asignar valores a las propiedades
@@ -68,24 +102,23 @@ class CUsuario{
             'nacimiento' => isset($_POST["nacimiento"]) ? $_POST["nacimiento"] : '',
             'intereses' => isset($_POST["intereses"]) ? $_POST["intereses"] : []
         ];
-                
-
-        // Validar campos obligatorios
-        if ( $this->datos["nombre"] == '') {
-            echo '<h1><a href="../vistas/formulario.php">Volver al formulario</a></h1>';
-            exit("No se rellenó el campo nombre");
+        
+        //Guardar el error
+        if ($this->datos["nombre"] == '') {
+             $_SESSION['error'] = "Nombre no rellenado"; 
+            return false;
         }
         if ($this->datos["email"] == '') {
-            echo '<h1><a href="../vistas/formulario.php">Volver al formulario</a></h1>';
-            exit("No se rellenó el campo email");
+             $_SESSION['error'] = "Email no rellenado"; 
+            return false;
         }
         if (empty($this->datos["intereses"])) {
-            echo '<h1><a href="../vistas/formulario.php">Volver al formulario</a></h1>';
-            exit("No tienes intereses seleccionados");
+             $_SESSION['error'] = "No has rellenado ningun campo en intereses";  
+            return false;
         }
         if ($this->datos["pais"] == '') {
-            echo '<h1><a href="../vista/formulario.php">Volver al formulario</a></h1>';
-            exit("No se seleccionó país");
+             $_SESSION['error'] = "Ningun pais seleccionado";  
+            return false;
         }
 
         return true;
@@ -98,44 +131,19 @@ class CUsuario{
             'email' => isset($_POST["email"]) ? trim($_POST["email"]) : '',
         ];
 
-        if ( $this->datos["nombre"] == '') {
-            echo '<h1><a href="../vistas/formulario.php">Volver al formulario</a></h1>';
-            exit("No se rellenó el campo nombre");
+        //Guardar el error
+        if ($this->datos["nombre"] == '') {
+             $_SESSION['error'] = "Nombre no rellenado"; 
+            return false;
         }
         if ($this->datos["email"] == '') {
-            echo '<h1><a href="../vistas/formulario.php">Volver al formulario</a></h1>';
-            exit("No se rellenó el campo email");
+             $_SESSION['error'] = "Email no rellenado"; 
+            return false;
         }
 
         return true;
-
     }
 
 
     
-}
-
-//Inicar el controlador
-
-$controlador = new CUsuario();
-$accion = $_GET["accion"] ?? '';
-
-switch ($accion) {
-    case 'iniciar':
-        $controlador->iniciar();
-        break;
-    case 'borrar':
-        $controlador->borrar();
-        break;
-    case 'editar':
-        $controlador->editar($id);
-        break;
-    case 'registrar':
-        $controlador->registrar();
-        break;
-    case 'mostrar':
-        
-    default:
-        echo "Acción no válida";
-        break;
 }

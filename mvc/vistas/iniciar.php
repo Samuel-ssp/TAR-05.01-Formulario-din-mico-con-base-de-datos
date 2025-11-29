@@ -7,8 +7,13 @@
 </head>
 <body>
     <h1>Iniciar Sesión</h1>
-
-        <form method="post" action="../controladores/cUsuario.php?accion=iniciar">
+    <?php
+        if(isset($_SESSION['error'])){
+            echo '<div style="color: red">'.$_SESSION['error'].'</div>';
+            unset($_SESSION['error']);  // Borra  error
+        }
+    ?>
+        <form method="post" action="index.php?accion=iniciar">
             Usuario:<br>
             <input type="text" name="nombre"><br><br>
 
@@ -17,6 +22,6 @@
 
             <input type="submit" value="Entrar">
         </form>
-        <a href="../vistas/formulario.php">Regístrate aquí</a>
+        <a href="index.php?accion=registro">Regístrate aquí</a>
 </body>
 </html>

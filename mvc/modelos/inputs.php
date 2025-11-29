@@ -13,10 +13,7 @@ class Input extends Conexion{
         // 2. Ejecutamos la consulta
         $stmt = $this->conexion->query($sql);
         
-        
-        foreach ($stmt as $pais) {
-            echo '<option value="'.$pais["idpais"].'">'.$pais["contenido"].'</option>';
-        }
+        return $stmt;
         
         
     } catch (PDOException $e) {
@@ -32,11 +29,7 @@ class Input extends Conexion{
 
             $stmt = $this->conexion->query($sql);
 
-
-            foreach ($stmt as $interes){
-                echo '<label><input type="checkbox" name="intereses[]" value="'.$interes["idinteres"].'">'.$interes["contenido"].'</label><br>';
-            }
-            
+            return $stmt;
         }catch(PDOException $e){
             echo "Error al obtener los intereses: ".$e->getMessage();
         }
