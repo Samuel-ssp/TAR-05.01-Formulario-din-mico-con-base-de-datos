@@ -1,8 +1,3 @@
-<?php
-    require_once __dir__."/../modelos/inputs.php";
-
-    $inputs = new Input();
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

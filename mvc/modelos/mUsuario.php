@@ -43,32 +43,13 @@ class MUsuario extends Conexion {
         }
     }
 
-    public function mostrarUsuario() {
+    public function obtenerUsuarios() {
         try{
-
-            $sql = "SELECT u.id, u.nombre, u.email FROM usuarios u";
+            //Obtengo y devuelvo los usuarios
+            $sql = "SELECT id,nombre,email FROM usuarios";
             $stmt = $this->conexion->query($sql);
 
-            foreach ($stmt as $usuario) {
-
-                echo '<div>';
-                echo 'Nombre: <strong>' . $usuario["nombre"] . '</strong> ';
-                echo 'Email: <strong>' . $usuario["email"] . '</strong> ';
-
-                // BOTÓN MODIFICAR (GET)
-                echo '<a href="../controlador/mUsuario.php?id=' . $usuario["id"] .'&accion=editar">
-                        <button type="button">Modificar</button>
-                    </a> ';
-
-                // BOTÓN BORRAR (DEBE)
-                echo '
-                    <a href="../controlador/mUsuario.php?id=' . $usuario["id"] .'&accion=borrar">
-                        <button type="button">Borrar</button>
-                    </a> 
-                ';
-
-                echo '</div>';
-            }
+            return  $stmt->fetchALL();
 
         }catch (PDOException $e) {
 
@@ -84,7 +65,7 @@ class MUsuario extends Conexion {
                             'email' => $datos["email"]]);
             $usuario = $stmt->fetch();
             if($usuario){
-                return true;
+                return $usuario;
             }
             return false;
             

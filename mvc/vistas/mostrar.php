@@ -7,7 +7,23 @@
 <body>
     <h1>Usuarios registrados</h1>
     <?php  
-        $this->modelo->mostrarUsuario();
+    
+        if (isset($usuarios) && is_array($usuarios)) {
+            foreach ($usuarios as $usuario) {
+                echo '<div>
+                        Nombre: <strong>' . $usuario["nombre"] . '</strong> 
+                        Email: <strong>' . $usuario["email"] . '</strong> 
+                        <a href="index.php?id=' . $usuario["id"] . '&accion=editar">
+                            <button type="button">Modificar</button>
+                        </a> 
+                        <a href="index.php?id=' . $usuario["id"] . '&accion=borrar">
+                            <button type="button">Borrar</button>
+                        </a> 
+                    </div>';
+            }
+        } else {
+            echo "No hay usuarios";
+        }
     ?> 
 </body>
 </html>

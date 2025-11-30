@@ -19,7 +19,13 @@ switch($peticion) {
         $vista = $controlador->mostrarLogin();
         break;
     case 'iniciar':
-        $vista = $controlador->iniciar();
+        $resultado = $controlador->iniciar();
+        if ($resultado === "usuarios") {
+            $usuarios = $controlador->obtenerUsuarios();
+            $vista = $controlador->mostrarUsuarios();
+        } else {
+            $vista = $resultado;
+        }
         break;
     
      case 'registro':
@@ -32,7 +38,8 @@ switch($peticion) {
         break;
     
     case 'usuarios':
-        $vista = $controlador->listar();
+        $usuarios = $controlador->obtenerUsuarios();
+        $vista = $controlador->mostrarUsuarios();
         break;
     
     case 'editar':
@@ -46,7 +53,16 @@ switch($peticion) {
     
     case 'borrar':
         $id = isset($_GET['id']) ? $_GET['id'] : null;
-        $vista = $controlador->mostrarBorrar($id);
+        $usuario = $controlador->obtenerUsuario($id);
+        $vista = $controlador->mostrarBorrar();
+        break; 
+    case 'borrado':
+        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        $vista = $controlador->borrar($id);
+        if($vista === "borrado"){
+            $mensaje= "Usuario borrado correctamente";
+            $vista = $controlador->mostrarBorrar();
+        }
         break; 
     
     default:

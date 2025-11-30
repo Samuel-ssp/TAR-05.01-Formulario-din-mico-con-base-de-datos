@@ -28,7 +28,7 @@ class CUsuario{
             if($resultado) {
 
                 $_SESSION['usuario_id'] = $resultado['id']; 
-                return "mostrar.php";
+                return "usuarios";
             } else {
                 $_SESSION['error'] = "Email o contraseña incorrectos";
                 return "iniciar.php";
@@ -41,18 +41,36 @@ class CUsuario{
     }
 
     ////////////////////////////////////////////////MOSTRAR LISTAR
-    public function listar(){
+    public function mostrarUsuarios(){
         return "mostrar.php";
+    }
+
+    public function obtenerUsuarios(){
+        //Devuelvo el array de usuarios
+        return  $this->modelo->obtenerUsuarios();  
     }
     
     ////////////////////////////////////////////////MOSTRAR BORRAR
     public function mostrarBorrar(){
-        
+        return "borrar_usuario.php";
+    }
+
+    public function borrar($id){
+        $borrado = $this->modelo->borrar($id);
+        if($borrado){
+            return "borrado";
+        }else{
+            return "borrar_usuario.php";
+        }
+    }
+
+    //////////////////OBTENER USUSARIOS
+    public function obtenerUsuario($id){
+        return $this->modelo->buscarId($id);
     }
     ////////////////////////////////////////////////MOSTRAR EDITAR
     public function mostrarEditar(){
-
-
+        return "editar_usuario.php";
     }
 
     public function actualizar(){

@@ -15,7 +15,6 @@ class Input extends Conexion{
         
         return $stmt;
         
-        
     } catch (PDOException $e) {
         echo "Error al obtener países: ".$e->getMessage();
     }
