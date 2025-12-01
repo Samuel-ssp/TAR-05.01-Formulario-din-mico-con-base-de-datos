@@ -28,7 +28,7 @@ switch($peticion) {
         }
         break;
     
-     case 'registro':
+    case 'registro':
         $intereses= $controlador->obtenerIntereses();
         $paises= $controlador->obtenerPaises();
         $vista = $controlador->mostrarRegistro();
