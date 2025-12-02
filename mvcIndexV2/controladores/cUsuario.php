@@ -6,13 +6,11 @@ class CUsuario{
     
     public $datos=[];
     private $modelo;
-    private $inputs;
     public $vista;
-    
+
     public function __construct()
     {
         $this->modelo = new MUsuario();
-        $this->inputs = new Input();
     }
 
     //////////////////////////////////////////MOSTRAR LOGIN
@@ -83,16 +81,7 @@ class CUsuario{
         return  "formulario.php";
           
     }
-    //MONSTRAR PAISES
-    public function obtenerPaises(){
-        return $this->inputs->selectPaises();
-        
-
-    }
-    //MOSTRAR INTERESES
-    public function obtenerIntereses(){
-        return  $this->inputs->checkIntereses();
-    }
+    
     //REGISTRAR USUARIO
     public function registrar(){
 
