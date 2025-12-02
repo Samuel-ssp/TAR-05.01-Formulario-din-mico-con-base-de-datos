@@ -99,6 +99,6 @@ switch($peticion) {
 
 // Llamar a la vista
 if (isset($vista)) {
-    include('vistas/'.$vista);
+    require_once('vistas/'.$vista);
 }
 ?>
