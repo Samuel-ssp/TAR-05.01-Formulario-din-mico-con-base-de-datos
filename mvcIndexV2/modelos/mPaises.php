@@ -1,5 +1,5 @@
 <?php
-require_once(__dir__."/../confi/conexion.php");
+require_once("conexion.php");
 
 class MPaises extends Conexion{
 

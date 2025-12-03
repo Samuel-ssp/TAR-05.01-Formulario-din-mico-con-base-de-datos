@@ -1,5 +1,5 @@
 <?php
-require_once("configdb.php");
+require_once("../confi/configdb.php");
 
 class Conexion{
 

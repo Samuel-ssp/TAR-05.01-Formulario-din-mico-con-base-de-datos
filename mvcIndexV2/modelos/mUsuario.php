@@ -1,15 +1,12 @@
 <?php
-require_once(__dir__."/../confi/conexion.php");
+require_once("conexion.php");
 
 class MUsuario extends Conexion {
-    
-   
-
     public function registrar($datos) {
         try {
             // 1. Insertar usuario  PDO
             $sqlUsuario = "INSERT INTO usuarios (nombre, email, genero, idpais, nacimiento) 
-                          VALUES (:nombre, :email, :genero, :idpais, :nacimiento)";
+                        VALUES (:nombre, :email, :genero, :idpais, :nacimiento)";
             
             $stmt = $this->conexion->prepare($sqlUsuario);
             $stmt->execute([
@@ -26,7 +23,7 @@ class MUsuario extends Conexion {
             // 3. Insertar intereses
             if (!empty($datos["intereses"])) {
                 $sqlInteres = "INSERT INTO usuario_intereses (usuario_id, interes_id) 
-                              VALUES (:usuario_id, :interes_id)";
+                            VALUES (:usuario_id, :interes_id)";
                 
                 $stmtInteres = $this->conexion->prepare($sqlInteres);
                 

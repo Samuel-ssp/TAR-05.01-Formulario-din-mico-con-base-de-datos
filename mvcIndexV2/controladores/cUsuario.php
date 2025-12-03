@@ -1,6 +1,5 @@
 <?php 
 require_once __DIR__ . "/../modelos/mUsuario.php";
-require_once __DIR__."/../modelos/inputs.php";
 
 class CUsuario{
     
