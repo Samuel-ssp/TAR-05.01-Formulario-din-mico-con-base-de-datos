@@ -3,76 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="vistas/estiloformulario.css">
-    <title>Document</title>
+    <title>Registro</title>
 </head>
 <body>
     <?php
         if(isset($_SESSION['error'])){
             echo '<div style="color: red">'.$_SESSION['error'].'</div>';
-            unset($_SESSION['error']);  // Borra  error
+            unset($_SESSION['error']);  
         }
     ?>
     <section id="formulario">
         
         <fieldset>
-            <legend><h2>Formulario</h2></legend>
-            <form action="index.php?accion=registrar" method="post">
+            <legend><h2>Formulario de Registro</h2></legend>
+            <form action="index.php?&m=registrar" method="post">
 
                 <div>
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" placeholder="Nombre completo">
+                    <input type="text" name="nombre" id="nombre" placeholder="Nombre completo" required>
                 </div>
+
                 <div>
-                    <label for="email">
-                    Email:
-                    <input type="email" name="email" id="email" placeholder="@email.com">
-                </label>
+                    <label for="password">Contraseña:</label>
+                    <input type="text" name="pw" id="pw" placeholder="Ingrese su contraseña" required>
                 </div>
+
                 <div>
-                    <!-- Checkbox -->
-                    <label><u>Intereses:</u></label><br>
-                    <?php
-                        foreach ($intereses as $interes){
-                            echo '<label><input type="checkbox" name="intereses[]" value="'.$interes["idinteres"].'">'.$interes["contenido"].'</label><br>';
-                        } 
-                    ?>
-                </div>
-                <div>
-                    <!--  Checkbox 1 opcion-->
-                    <p><u>Condiciones</u></p>
-                    <input type="checkbox" name="condiciones" id="condiciones" value="Aceptadas" required>
-                    <label for="condiciones">Acepto las condiciones</label>
-                </div>
-                <div>
-                    <!-- Radio buttons -->
-                    <label>Género:</label>
-                    <input type="radio" name="genero" id="masculino" value="M" required>
-                    <label for="masculino">Masculino</label>
-                    <input type="radio" name="genero" id="femenino" value="F">
-                    <label for="femenino">Femenino</label>
-                    <input type="radio" name="genero" id="otro" value="O">
-                    <label for="otro">Otro</label>
-                </div>
-                <div>
-                    <!-- Select -->
                     <label for="pais">País:</label>
-                    <select name="pais">
+                    <select name="pais" id="pais" required>
+                        <option value="">Seleccione un país</option>
                     <?php 
-                        foreach ($paises as $pais) {
-                            echo '<option value="'.$pais["idpais"].'">'.$pais["contenido"].'</option>';
+                        foreach ($datos as $pais) {
+                            echo '<option value="'.$pais["idpais"].'">'.$pais["nombre"].'</option>';
                         }
                     ?>
                     </select>
                 </div>
-                <div>
-                    <!--Date -->
-                    <label for="nacimiento">Año de nacimiento</label>
-                    <input type="date" name="nacimiento" id="nacimiento">
-                </div>
-                <button type="submit" id="enviar">Enviar</button>
+
+                <button type="submit" id="enviar">Registrar</button>
                 <button type="reset" id="limpiar">Limpiar</button>
 
-        </form>
+            </form>
+            <a href="index.php">Volver</a>
         </fieldset>
     </section>  
 </body>

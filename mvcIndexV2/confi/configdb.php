@@ -2,5 +2,5 @@
     define("SERVIDOR",'localhost');
     define("USUARIO",'root');
     define("PASSWORD",'');
-    define("BBDD",'formulario');
+    define("BBDD",'prueba');
 ?>

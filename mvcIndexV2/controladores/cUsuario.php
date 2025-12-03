@@ -1,5 +1,6 @@
 <?php 
 require_once __DIR__ . "/../modelos/mUsuario.php";
+require_once __DIR__."/../modelos/mPaises.php";
 
 class CUsuario{
     
@@ -13,34 +14,34 @@ class CUsuario{
     }
 
     //////////////////////////////////////////MOSTRAR LOGIN
-    public function mostrarLogin(){
-        return "iniciar.php";
+    public function login(){
+        $this->vista = "iniciar.php";
     }
     //INICIAR SESION
-    public function iniciar(){
+    public function iniciarSesion(){
 
-        if($this->validarInicio()){
+        if($this->validar()){
 
             $resultado = $this->modelo->iniciar($this->datos);
             
             if($resultado) {
 
                 $_SESSION['usuario_id'] = $resultado['id']; 
-                return "usuarios";
+                $this->vista = "usuarios";
             } else {
                 $_SESSION['error'] = "Email o contraseña incorrectos";
-                return "iniciar.php";
+                $this->vista = "iniciar.php";
             }  
         
         } else {
 
-            return "iniciar.php";
+            $this->vista = "iniciar.php";
         }
     }
 
     ////////////////////////////////////////////////MOSTRAR LISTAR
     public function mostrarUsuarios(){
-        return "mostrar.php";
+        $this->vista = "mostrar.php";
     }
 
     public function obtenerUsuarios(){
@@ -50,7 +51,7 @@ class CUsuario{
     
     ////////////////////////////////////////////////MOSTRAR BORRAR
     public function mostrarBorrar(){
-        return "borrar_usuario.php";
+        $this->vista = "borrar_usuario.php";
     }
 
     public function borrar($id){
@@ -58,7 +59,7 @@ class CUsuario{
         if($borrado){
             return "borrado";
         }else{
-            return "borrar_usuario.php";
+            $this->vista = "borrar_usuario.php";
         }
     }
 
@@ -68,7 +69,7 @@ class CUsuario{
     }
     ////////////////////////////////////////////////MOSTRAR EDITAR
     public function mostrarEditar(){
-        return "editar_usuario.php";
+        $this->vista = "editar_usuario.php";
     }
 
     public function actualizar($datos){
@@ -76,66 +77,35 @@ class CUsuario{
     }
 
     //////////////////////////////////////////////////MOSTRAR REGISTRAR
-    public function mostrarRegistro(){  
-        return  "formulario.php";
-          
+    public function mostrarRegistro(){
+        $this->vista =  "formulario.php";
+        return  $paises = MPaises::selectPaises();
+        
     }
     
     //REGISTRAR USUARIO
     public function registrar(){
 
-        if($this->validarRegistro()){
+        if($this->validar()){
 
             if($this->modelo->registrar($this->datos)) {
-                    return "mostrar.php";  
+                    $this->vista = "mostrar.php";  
                 }else{
                     $_SESSION['error'] = "Fallo en el registro";
-                    return "formulario.php?accion=registro"; 
+                    $this->vista = "formulario.php"; 
                 }
 
             } else {
-                return "formulario.php";
+                $this->vista = "formulario.php";
             }
         }
     ////////////////////////////////////////////VALIDACIONES
-    private function validarRegistro(){
-        
-        // Asignar valores a las propiedades
-        $this->datos = [
-            'nombre' => isset($_POST["nombre"]) ? trim($_POST["nombre"]) : '',
-            'email' => isset($_POST["email"]) ? trim($_POST["email"]) : '',
-            'genero' => isset($_POST["genero"]) ? $_POST["genero"] : '',
-            'pais' => isset($_POST["pais"]) ? $_POST["pais"] : '',
-            'nacimiento' => isset($_POST["nacimiento"]) ? $_POST["nacimiento"] : '',
-            'intereses' => isset($_POST["intereses"]) ? $_POST["intereses"] : []
-        ];
-        
-        //Guardar el error
-        if ($this->datos["nombre"] == '') {
-             $_SESSION['error'] = "Nombre no rellenado"; 
-            return false;
-        }
-        if ($this->datos["email"] == '') {
-             $_SESSION['error'] = "Email no rellenado"; 
-            return false;
-        }
-        if (empty($this->datos["intereses"])) {
-             $_SESSION['error'] = "No has rellenado ningun campo en intereses";  
-            return false;
-        }
-        if ($this->datos["pais"] == '') {
-             $_SESSION['error'] = "Ningun pais seleccionado";  
-            return false;
-        }
-
-        return true;
-    }
-
-    private function validarInicio(){
+    
+    private function validar(){
 
         $this->datos = [
             'nombre' => isset($_POST["nombre"]) ? trim($_POST["nombre"]) : '',
-            'email' => isset($_POST["email"]) ? trim($_POST["email"]) : '',
+            'email' => isset($_POST["pw"]) ? trim($_POST["email"]) : '',
         ];
 
         //Guardar el error
@@ -143,8 +113,8 @@ class CUsuario{
              $_SESSION['error'] = "Nombre no rellenado"; 
             return false;
         }
-        if ($this->datos["email"] == '') {
-             $_SESSION['error'] = "Email no rellenado"; 
+        if ($this->datos["pw"] == '') {
+             $_SESSION['error'] = "Contraseña sin rellenar"; 
             return false;
         }
 

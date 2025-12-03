@@ -1,6 +1,5 @@
-
 <?php
-require_once __DIR__ .'/config/indexConfig.php';
+require_once __DIR__ .'/confi/rutas.php';
 
     //CONTROLADOR POR DEFECTO
     if (!isset($_GET['c'])) {
@@ -12,24 +11,24 @@ require_once __DIR__ .'/config/indexConfig.php';
     }
 
     //CREO LA RUTA DLE CONTROLADOR 
-    $controladorRuta = '/' . RC .'c'.$_GET['c'] . '.php';
+    $controladorRuta = __DIR__.'/'. RC .'c'.$_GET['c'] . '.php';
 
-    require_once $controladorRuta;
+    require_once ($controladorRuta);
 
     //INTANCIO EL CONTROLADOR CON LA RUTA CREADA Y EL NOMBRE CREADO
     $nombreControlador = 'C'.$_GET['c'];
-    $instanciarControlador = new $nombreControlador();
+    $Controlador = new $nombreControlador();
 
     $metodo = $_GET['m'];
     $datos = [];
 
     //SI EXISTE EL CONTROLADOR GUARDO LOS DATOS QUE DEVUELVE
-    if (method_exists($instanciarControlador, $metodo)) {
+    if (method_exists($Controlador, $metodo)) {
 
-        $datos = $instanciaControlador->$metodo();
+        $datos = $Controlador->$metodo();
         
     }
     //LLAMADO A LA VISTA GUARDADA EN EL CONTROLADOR CON LA RUTA GUARDADA
-    include(RV . $instanciarControlador->vista . '.php');
+    include( __DIR__.'/'.RV . $Controlador->vista);
     
 ?>

@@ -41,11 +41,12 @@
     ?>
     <div class="contenedor-formulario">
         <h3>Iniciar Sesión</h3>
-        <form action="login.php" method="POST">
-            <input type="text" name="usuario" placeholder="Usuario" required>
-            <input type="password" name="contrasena" placeholder="Contraseña" required>
+        <form action="index.php?c=Usuario&m=iniciarSesion" method="POST">
+            <input type="text" name="nombre" placeholder="Nombre">
+            <input type="text" name="pw" placeholder="Contraseña">
             <button type="submit">Entrar</button>
         </form>
+        <a href="index.php?c=Usuario&m=mostrarRegistro">¿Quieres registrarte?</a>
     </div>
 </body>
 </html>
