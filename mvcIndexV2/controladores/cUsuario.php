@@ -25,11 +25,11 @@ class CUsuario{
             
             if($resultado) {
 
-                $_SESSION['usuario_id'] = $resultado['id']; 
+                //GUARDAR ERROR
                 $this->vista = "mostrar.php";
                 return $this->modelo->obtenerUsuarios();
             } else {
-                $_SESSION['error'] = "Email o contraseña incorrectos";
+                //GUARDAR ERROR
                 $this->vista = "iniciar.php";
             }  
         
@@ -94,7 +94,7 @@ class CUsuario{
                     $this->vista = "mostrar.php";
                     return  $this->modelo->obtenerUsuarios();   
                 }else{
-                    $_SESSION['error'] = "Fallo en el registro";
+                    //GUARDAR ERROR
                     $this->vista = "formulario.php";
                     return  $paises = MPaises::selectPaises(); 
                 }
@@ -114,11 +114,11 @@ class CUsuario{
 
         //Guardar el error
         if ($nombre == '') {
-             $_SESSION['error'] = "Nombre no rellenado"; 
+             //GUARDAR ERROR
             return false;
         }
         if ($pw == '') {
-             $_SESSION['error'] = "Contraseña sin rellenar"; 
+             //GUARDAR ERROR 
             return false;
         }
 
