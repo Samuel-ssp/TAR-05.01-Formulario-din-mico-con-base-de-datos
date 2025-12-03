@@ -29,6 +29,8 @@ require_once __DIR__ .'/confi/rutas.php';
         
     }
     //LLAMADO A LA VISTA GUARDADA EN EL CONTROLADOR CON LA RUTA GUARDADA
+
+    var_dump($vista=__DIR__.'/'.RV . $Controlador->vista);
     include( __DIR__.'/'.RV . $Controlador->vista);
     
 ?>

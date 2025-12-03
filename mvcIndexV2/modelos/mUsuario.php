@@ -2,38 +2,21 @@
 require_once("conexion.php");
 
 class MUsuario extends Conexion {
-    public function registrar($datos) {
+
+    public function registrar() {
         try {
             // 1. Insertar usuario  PDO
-            $sqlUsuario = "INSERT INTO usuarios (nombre, email, genero, idpais, nacimiento) 
-                        VALUES (:nombre, :email, :genero, :idpais, :nacimiento)";
+            $sqlUsuario = "INSERT INTO usuarios (nombre, contrasenia, pais_id) 
+                        VALUES (:nombre, :contrasenia, :pais_id)";
             
             $stmt = $this->conexion->prepare($sqlUsuario);
-            $stmt->execute([
-                ':nombre' => $datos["nombre"],
-                ':email' => $datos["email"],
-                ':genero' => $datos["genero"],
-                ':idpais' => $datos["pais"],
-                ':nacimiento' => $datos["nacimiento"]
-            ]);
             
-            // 2. Obtener ID del usuario insertado Version PDO
-            $usuario_id = $this->conexion->lastInsertId();
-            
-            // 3. Insertar intereses
-            if (!empty($datos["intereses"])) {
-                $sqlInteres = "INSERT INTO usuario_intereses (usuario_id, interes_id) 
-                            VALUES (:usuario_id, :interes_id)";
-                
-                $stmtInteres = $this->conexion->prepare($sqlInteres);
-                
-                foreach ($datos["intereses"] as $idInteres) {
-                    $stmtInteres->execute([
-                        ':usuario_id' => $usuario_id,
-                        ':interes_id' => $idInteres
-                    ]);
-                }
-            }
+            return  $stmt->execute([
+                ':nombre' => $_POST["nombre"],
+                ':contrasenia' => $_POST["pw"],
+                ':pais_id' => $_POST["pais"]
+            ]); 
+             
             
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -43,7 +26,7 @@ class MUsuario extends Conexion {
     public function obtenerUsuarios() {
         try{
             //Obtengo y devuelvo los usuarios
-            $sql = "SELECT id,nombre,email FROM usuarios";
+            $sql = "SELECT id,nombre,contrasenia FROM usuarios";
             $stmt = $this->conexion->query($sql);
 
             return  $stmt->fetchALL();
@@ -54,12 +37,12 @@ class MUsuario extends Conexion {
         }
     }
 
-    public function iniciar($datos){
+    public function iniciar(){
         try {
-            $sql = 'SELECT * FROM usuarios WHERE nombre  = :nombre AND email  = :email';
+            $sql = 'SELECT * FROM usuarios WHERE nombre  = :nombre AND contrasenia  = :contrasenia';
             $stmt = $this->conexion->prepare($sql);
-            $stmt->execute(['nombre' => $datos["nombre"],
-                            'email' => $datos["email"]]);
+            $stmt->execute(['nombre' => $_POST["nombre"],
+                            'contrasenia' => $_POST["pw"]]);
             $usuario = $stmt->fetch();
             if($usuario){
                 return $usuario;
@@ -73,12 +56,12 @@ class MUsuario extends Conexion {
         }
     }
 
-    public function buscarId($id) {
+    public function buscarId() {
         try {
 
             $sql = "SELECT * FROM usuarios WHERE id = :id";
             $stmt = $this->conexion->prepare($sql);
-            $stmt->execute(['id' => $id]);
+            $stmt->execute([':id' => $_GET["id"]]);
             $usuario = $stmt->fetch(); // devuelve primera fila
             if ($usuario) {
                 return $usuario;
@@ -93,12 +76,12 @@ class MUsuario extends Conexion {
         }
     }
 
-    public function borrar($id) {
+    public function borrar() {
         try {
 
             $sqlDelete = "DELETE FROM usuarios WHERE id = :id";
             $stmt = $this->conexion->prepare($sqlDelete);
-            $borrado = $stmt->execute(['id' => $id]);
+            $borrado = $stmt->execute([':id' => $_GET["id"]]);
             return  $borrado;
 
         } catch (PDOException $e) {
@@ -108,15 +91,15 @@ class MUsuario extends Conexion {
         }
     }
 
-    public function actualizar($datos) {
+    public function actualizar() {
 
         try {
-            $sqlUpdate = "UPDATE usuarios SET nombre = :nombre, email = :email WHERE id = :id";
+            $sqlUpdate = "UPDATE usuarios SET nombre = :nombre, contrasenia = :contrasenia WHERE id = :id";
             $stmt = $this->conexion->prepare($sqlUpdate);
             return $stmt->execute([
-                ':nombre' => $datos["nombre"],
-                ':email' => $datos["email"],
-                ':id' => $datos["id"]
+                ':nombre' => $_POST["nombre"],
+                ':contrasenia' => $_POST["contrasenia"],
+                ':id' => $_POST["id"]
             ]);
         } catch (PDOException $e) {
 

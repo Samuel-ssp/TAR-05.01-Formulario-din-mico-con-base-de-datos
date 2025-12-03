@@ -16,7 +16,7 @@
         
         <fieldset>
             <legend><h2>Formulario de Registro</h2></legend>
-            <form action="index.php?&m=registrar" method="post">
+            <form action="index.php?c=Usuario&m=registrar" method="post">
 
                 <div>
                     <label for="nombre">Nombre:</label>
@@ -34,7 +34,7 @@
                         <option value="">Seleccione un país</option>
                     <?php 
                         foreach ($datos as $pais) {
-                            echo '<option value="'.$pais["idpais"].'">'.$pais["nombre"].'</option>';
+                            echo '<option value="'.$pais["id"].'">'.$pais["nombre"].'</option>';
                         }
                     ?>
                     </select>

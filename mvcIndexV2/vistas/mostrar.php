@@ -8,15 +8,15 @@
     <h1>Usuarios registrados</h1>
     <?php  
     
-        if (isset($usuarios) && is_array($usuarios)) {
-            foreach ($usuarios as $usuario) {
+        if (isset($datos) && is_array($datos)) {
+            foreach ($datos as $usuario) {
                 echo '<div>
                         Nombre: <strong>' . $usuario["nombre"] . '</strong> 
-                        Email: <strong>' . $usuario["email"] . '</strong> 
-                        <a href="index.php?id=' . $usuario["id"] . '&accion=editar">
+                        Contraseña: <strong>' . $usuario["contrasenia"] . '</strong> 
+                        <a href="index.php?id=' . $usuario["id"] . '&m=mostrarEditar&c=Usuario">
                             <button>Modificar</button>
                         </a> 
-                        <a href="index.php?id=' . $usuario["id"] . '&accion=borrar">
+                        <a href="index.php?id=' . $usuario["id"] . '&m=mostrarBorrar&c=Usuario">
                             <button>Borrar</button>
                         </a> 
                     </div>';
