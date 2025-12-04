@@ -6,6 +6,7 @@ class CUsuario{
     
     private $modelo;
     public $vista;
+    
 
     public function __construct()
     {
@@ -25,7 +26,6 @@ class CUsuario{
             
             if($resultado) {
 
-                //GUARDAR ERROR
                 $this->vista = "mostrar.php";
                 return $this->modelo->obtenerUsuarios();
             } else {
@@ -74,7 +74,7 @@ class CUsuario{
     }
 
     public function actualizar(){ 
-        $this->vista = "editar_usuario.php";
+        header("Location:index.php?c=Usuario&m=mostrarEditar&id=".$_POST["id"]);
         return $this->modelo->actualizar();
     }
 
