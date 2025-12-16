@@ -40,8 +40,8 @@
         <form action="index.php?c=Usuario&m=iniciarSesion" method="POST">
             <input type="text" name="nombre" placeholder="Nombre">
             <input type="text" name="pw" placeholder="Contraseña">
-            <label><input type="radio" name="metodo" checked> Query</label>
-            <label><input type="radio" name="metodo"> Prepare</label>
+            <label><input type="radio" value="query" name="metodo" checked> Query</label>
+            <label><input type="radio"value="prepare" name="metodo"> Prepare</label>
             <button type="submit">Entrar</button>
         </form>
         <a href="index.php?c=Usuario&m=mostrarRegistro">¿Quieres registrarte?</a>

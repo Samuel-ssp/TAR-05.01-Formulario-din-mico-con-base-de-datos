@@ -35,22 +35,24 @@ class MUsuario extends Conexion {
         }
     }
 
-    public function iniciarQuery(): array|false {
+    public function iniciarQuery(){
     try {
         
-        $sql = 'SELECT id, nombre, contrasenia FROM usuarios WHERE nombre ="'.$_POST["nombre"].'" AND contrasenia = "'.$_POST["nombre"].'"';
+        $sql = 'SELECT * FROM usuarios WHERE nombre ="'.$_POST["nombre"].'" AND contrasenia = "'.$_POST["nombre"].'"';
         
         $resultado = $this->conexion->query($sql);
         
         return $resultado;
+
     } catch (PDOException $e) {
-        // El tipo de retorno "array|false" es una sugerencia.
+
         throw new Exception("Error al obtener usuario: " . $e->getMessage());
 
     }
 }
 
     public function iniciarPrepare(){
+        echo "PREPARE";
         try {
             $sql = 'SELECT * FROM usuarios WHERE nombre  = :nombre AND contrasenia  = :contrasenia';
             $stmt = $this->conexion->prepare($sql);
